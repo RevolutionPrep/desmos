@@ -17,17 +17,20 @@ Gem::Specification.new do |s|
     "README.rdoc"
   ]
   s.files = [
-    ".document",
+    ".rvmrc",
+    "Gemfile",
+    "Gemfile.lock",
     "LICENSE",
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "desmos.gemspec",
     "lib/desmos.rb",
     "spec/desmos_spec.rb",
     "spec/spec.opts",
     "spec/spec_helper.rb"
   ]
-  s.homepage = %q{http://github.com/ryanmoran/desmos}
+  s.homepage = %q{http://github.com/RevolutionPrep/desmos}
   s.require_paths = [%q{lib}]
   s.rubygems_version = %q{1.8.6}
   s.summary = %q{TODO: one-line summary of your gem}
@@ -59,3 +62,4 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rspec>, [">= 1.2.9"])
   end
 end
+
