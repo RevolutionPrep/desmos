@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{desmos}
-  s.version = "0.0.0"
+  s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Ryan Moran}]
@@ -26,6 +26,13 @@ Gem::Specification.new do |s|
     "VERSION",
     "desmos.gemspec",
     "lib/desmos.rb",
+    "lib/desmos/configuration.rb",
+    "lib/desmos/errors.rb",
+    "lib/desmos/request_support.rb",
+    "lib/desmos/student.rb",
+    "lib/desmos/tutor.rb",
+    "lib/desmos/utils.rb",
+    "lib/desmos/whiteboard.rb",
     "spec/desmos_spec.rb",
     "spec/spec.opts",
     "spec/spec_helper.rb"
