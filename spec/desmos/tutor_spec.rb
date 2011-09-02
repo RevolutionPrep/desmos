@@ -14,6 +14,7 @@ describe Desmos::Tutor, '.new' do
     )
     tutor.id.should eql(1)
     tutor.hash.should eql('abcde')
+    tutor.type.should eql('tutor')
     tutor.name.should eql('Test')
     tutor.last_name.should eql('Tutor')
     tutor.family_name.should eql('TutorName')

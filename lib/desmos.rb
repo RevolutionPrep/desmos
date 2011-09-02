@@ -8,6 +8,7 @@ module Desmos
   autoload :RequestSupport, 'desmos/request_support'
   autoload :Student,        'desmos/student'
   autoload :Tutor,          'desmos/tutor'
+  autoload :User,           'desmos/user'
   autoload :Utils,          'desmos/utils'
   autoload :Whiteboard,     'desmos/whiteboard'
 

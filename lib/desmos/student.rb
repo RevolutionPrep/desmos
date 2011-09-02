@@ -1,10 +1,10 @@
 module Desmos
-  class Student
+  class Student < User
 
-    # def initialize(options = {})
-    #   options.symbolize_keys!
-    #   puts options.inspect
-    # end
+    def initialize(options = {})
+      super
+      @type = 'student'
+    end
 
   end
 end

@@ -4,7 +4,7 @@ describe Desmos::Whiteboard, '.new' do
 
   it 'sets the instance variables based upon the options passed into the initializer' do
     tutor      = Desmos::Tutor.new(:id => 1, :name => 'test')
-    students   = [Desmos::Student.new]
+    students   = [Desmos::Student.new(:id => 2, :name => 'student')]
     whiteboard = Desmos::Whiteboard.new(
       :hash     => 'abcde',
       :title    => 'Title',
@@ -37,7 +37,7 @@ describe Desmos::Whiteboard, '.new' do
     }.should raise_error(ArgumentError, ':students option must be either an Array containing object of type Desmos::Student or NilClass')
 
     lambda {
-      Desmos::Whiteboard.new(:students => [Desmos::Student.new])
+      Desmos::Whiteboard.new(:students => [Desmos::Student.new(:id => 2, :name => 'student')])
     }.should_not raise_error
 
     lambda {
