@@ -1,5 +1,6 @@
 module Desmos
   module Utils
+
     # Taken from Rack::Utils, 1.2.1 to remove Rack dependency.
     def escape(s)
       s.to_s.gsub(/([^ a-zA-Z0-9_.-]+)/u) {
@@ -11,7 +12,7 @@ module Desmos
     # Params are NOT escaped.
     def traverse_params_hash(hash, result = nil, current_key = nil)
       result ||= { :files => [], :params => [] }
-
+    
       hash.keys.sort { |a, b| a.to_s <=> b.to_s }.collect do |key|
         new_key = (current_key ? "#{current_key}[#{key}]" : key).to_s
         case hash[key]
@@ -41,7 +42,7 @@ module Desmos
 
     def traversal_to_param_string(traversal, escape = true)
       traversal[:params].collect { |param|
-        "#{Typhoeus::Utils.escape(param[0])}=#{Typhoeus::Utils.escape(param[1])}"
+        "#{Desmos::Utils.escape(param[0])}=#{Desmos::Utils.escape(param[1])}"
       }.join('&')
     end
     module_function :traversal_to_param_string
@@ -58,5 +59,6 @@ module Desmos
       end
     end
     module_function :bytesize
+
   end
 end

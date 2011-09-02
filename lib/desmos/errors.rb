@@ -1,6 +1,6 @@
 module Desmos
-  class RequestError < StandardError
-  end
+#   class RequestError < StandardError
+#   end
 
   class ConfigurationError < StandardError
   end
