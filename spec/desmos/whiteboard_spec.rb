@@ -173,7 +173,7 @@ describe Desmos::Whiteboard, '.find' do
     end
 
     it 'raises an error if the Whiteboard' do
-      lambda { Desmos::Whiteboard.find('abcde') }.should raise_error(Desmos::RequestError, 'Whiteboard not found')
+      lambda { Desmos::Whiteboard.find('abcde') }.should raise_error(Desmos::WhiteboardNotFound, 'Whiteboard with HASH=abcde could not be found')
     end
 
   end

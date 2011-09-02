@@ -4,4 +4,7 @@ module Desmos
 
   class RequestError < StandardError
   end
+
+  class WhiteboardNotFound < StandardError
+  end
 end

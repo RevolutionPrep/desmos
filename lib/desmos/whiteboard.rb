@@ -59,7 +59,12 @@ module Desmos
     def get
       parsed_response = request!(:whiteboard, :read, :whiteboard_hash => hash)
       if parsed_response[:success] == 'false'
-        raise RequestError, parsed_response[:error_message]
+        case parsed_response[:error_message]
+        when 'Whiteboard not found'
+          raise WhiteboardNotFound, "Whiteboard with HASH=#{hash} could not be found"
+        else
+          raise RequestError, parsed_response[:error_message]
+        end
       else
         build_from_hash(parsed_response)
       end

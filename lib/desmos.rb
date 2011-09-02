@@ -15,4 +15,5 @@ module Desmos
   # ERROR CLASSES
   autoload :ConfigurationError, 'desmos/errors'
   autoload :RequestError,       'desmos/errors'
+  autoload :WhiteboardNotFound, 'desmos/errors'
 end
