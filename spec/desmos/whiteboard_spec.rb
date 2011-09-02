@@ -110,3 +110,40 @@ describe Desmos::Whiteboard, '#request_options' do
   end
 
 end
+
+describe Desmos::Whiteboard, '.find' do
+
+  before(:each) do
+    stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/read/).
+      to_return(:status => 200, :body => "{\"title\": \"No Title\", \"hash\": \"abcde\", \"tutor\": {\"id\": null, \"name\": null, \"hash\": null}, \"students\": []}")
+  end
+
+  it 'requests a Whiteboard from the Desmos API using its unique hash value' do
+    whiteboard = Desmos::Whiteboard.find('abcde')
+    whiteboard.should be_instance_of(Desmos::Whiteboard)
+    whiteboard.hash.should eql('abcde')
+  end
+
+end
+
+describe Desmos::Whiteboard, '#build_from_hash' do
+  
+  it 'builds a fresh instance using the provided hash' do
+    whiteboard = Desmos::Whiteboard.new.build_from_hash({
+      :title => 'No Title',
+      :hash  => 'abcde',
+      :tutor => {
+        :id   => nil,
+        :hash => nil,
+        :name => nil
+      },
+      :students => []
+    })
+    whiteboard.should be_instance_of(Desmos::Whiteboard)
+    whiteboard.title.should eql('No Title')
+    whiteboard.hash.should eql('abcde')
+    whiteboard.tutor.should be_instance_of(Desmos::Tutor)
+    whiteboard.students.should be_empty
+  end
+  
+end

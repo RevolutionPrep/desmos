@@ -3,9 +3,9 @@ module Desmos
     include RequestSupport
     attr_accessor :hash, :title, :tutor, :students
 
-    # def self.find(hash)
-    #   new(:hash => hash).find
-    # end
+    def self.find(hash)
+      new(:hash => hash).get
+    end
 
     def self.create(options = {})
       new(options).save
@@ -34,11 +34,10 @@ module Desmos
       self
     end
 
-    # def find
-    #   parsed_response = request!(:whiteboard, :read, :whiteboard_hash => hash)
-    #   build_from_hash(parsed_response)
-    #   self
-    # end
+    def get
+      parsed_response = request!(:whiteboard, :read, :whiteboard_hash => hash)
+      build_from_hash(parsed_response)
+    end
 
     def request_options
       @request_options ||= begin
@@ -54,12 +53,13 @@ module Desmos
       end
     end
 
-    # def build_from_hash(options)
-    #   self.hash     = options[:hash]
-    #   self.title    = options[:title]
-    #   self.tutor    = Tutor.new(options[:tutor])
-    #   self.students = options[:students].collect { |student_attributes| Student.new(student_attributes) }
-    # end
+    def build_from_hash(options)
+      self.hash     = options[:hash]
+      self.title    = options[:title]
+      self.tutor    = Tutor.new(options[:tutor])
+      self.students = options[:students].collect { |student_attributes| Student.new(student_attributes) }
+      self
+    end
 
   end
 end
