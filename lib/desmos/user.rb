@@ -21,14 +21,12 @@ module Desmos
     end
 
     def request_options
-      @request_options ||= begin
-        options = {}
-        options.merge!(:user_id   => id)
-        options.merge!(:user_name => name)
-        options.merge!(:user_type => type)
-        options.merge!(:user_hash => hash) if hash
-        options
-      end
+      options = {}
+      options.merge!(:user_id   => id)
+      options.merge!(:user_name => name)
+      options.merge!(:user_type => type)
+      options.merge!(:user_hash => hash) if hash
+      options
     end
 
   end

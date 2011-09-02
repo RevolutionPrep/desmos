@@ -49,23 +49,48 @@ end
 
 describe Desmos::Whiteboard, '#save' do
 
-  before(:each) do
-    stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/create/).
-      to_return(:status => 200, :body => "{\"success\": \"true\", \"hash\": \"abcde\"}")
+  context 'when the whiteboard does not already exist' do
+
+    before(:each) do
+      stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/create/).
+        to_return(:status => 200, :body => "{\"success\": \"true\", \"hash\": \"abcde\"}")
     
-    stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/add_user/).
-      to_return(:status => 200, :body => "{\"success\": \"true\", \"hash\": \"abcde\"}")
+      stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/add_user/).
+        to_return(:status => 200, :body => "{\"success\": \"true\", \"hash\": \"abcde\"}")
+    end
+
+    it 'calls out to the Desmos API to save the whiteboard, tutor, and students' do
+      tutor      = Desmos::Tutor.new(:id => 1, :name => 'tutor')
+      student    = Desmos::Student.new(:id => 2, :name => 'student')
+      whiteboard = Desmos::Whiteboard.new(:tutor => tutor)
+      whiteboard.students << student
+      whiteboard.save
+    
+      assert_requested :get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/create/, :times => 1
+      assert_requested :get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/add_user/, :times => 2
+    end
+
   end
 
-  it 'calls out to the Desmos API to save the whiteboard, tutor, and students' do
-    tutor      = Desmos::Tutor.new(:id => 1, :name => 'tutor')
-    student    = Desmos::Student.new(:id => 2, :name => 'student')
-    whiteboard = Desmos::Whiteboard.new(:tutor => tutor)
-    whiteboard.students << student
-    whiteboard.save
+  context 'when the whiteboard already exists' do
+
+    before(:each) do
+      stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/create/).
+        to_return(:status => 200, :body => "{\"success\": \"true\", \"hash\": \"abcde\"}").
+        to_return(:status => 200, :body => "{\"success\":\"false\",\"error_code\":1,\"error_message\":\"whiteboard already exists\"}")
     
-    assert_requested :get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/create/, :times => 1
-    assert_requested :get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/add_user/, :times => 2
+      stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/add_user/).
+        to_return(:status => 200, :body => "{\"success\": \"true\", \"hash\": \"abcde\"}")
+    end
+
+    it 'calls out to the Desmos API to save the whiteboard, tutor, and students' do
+      whiteboard = Desmos::Whiteboard.new
+      whiteboard.save
+      whiteboard.save
+    
+      assert_requested :get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/create/, :times => 2
+    end
+
   end
 
 end

@@ -30,7 +30,11 @@ module Desmos
 
     def save
       parsed_response = request!(:whiteboard, :create, request_options)
-      self.hash = parsed_response.fetch(:hash)
+      if parsed_response.fetch(:success) == 'false'
+        raise RequestError, parsed_response[:error_message] unless parsed_response[:error_message] == 'whiteboard already exists'
+      else
+        self.hash = parsed_response.fetch(:hash)
+      end
       add_tutor
       add_students
       self
@@ -39,6 +43,7 @@ module Desmos
     def add_tutor
       if tutor
         parsed_response = request!(:whiteboard, :add_user, tutor.request_options.merge(:whiteboard_hash => hash))
+        tutor.hash = parsed_response.fetch(:hash)
       end
     end
 
@@ -46,6 +51,7 @@ module Desmos
       unless students.empty?
         students.each do |student|
           parsed_response = request!(:whiteboard, :add_user, student.request_options.merge(:whiteboard_hash => hash))
+          student.hash = parsed_response.fetch(:hash)
         end
       end
     end
@@ -60,17 +66,15 @@ module Desmos
     end
 
     def request_options
-      @request_options ||= begin
-        options = {}
-        options.merge!(:hash  => hash)  if hash
-        options.merge!(:title => title) if title
-        if tutor
-          options.merge!(:tutor_name => tutor.name) if tutor.name
-          options.merge!(:tutor_id   => tutor.id)   if tutor.id
-          options.merge!(:tutor_hash => tutor.hash) if tutor.hash
-        end
-        options
+      options = {}
+      options.merge!(:hash  => hash)  if hash
+      options.merge!(:title => title) if title
+      if tutor
+        options.merge!(:tutor_name => tutor.name) if tutor.name
+        options.merge!(:tutor_id   => tutor.id)   if tutor.id
+        options.merge!(:tutor_hash => tutor.hash) if tutor.hash
       end
+      options
     end
 
     def build_from_hash(options)
