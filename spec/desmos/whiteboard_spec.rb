@@ -113,21 +113,38 @@ end
 
 describe Desmos::Whiteboard, '.find' do
 
-  before(:each) do
-    stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/read/).
-      to_return(:status => 200, :body => "{\"title\": \"No Title\", \"hash\": \"abcde\", \"tutor\": {\"id\": null, \"name\": null, \"hash\": null}, \"students\": []}")
+  context 'when the Whiteboard exists on the Desmos API' do
+
+    before(:each) do
+      stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/read/).
+        to_return(:status => 200, :body => "{\"title\": \"No Title\", \"hash\": \"abcde\", \"tutor\": {\"id\": null, \"name\": null, \"hash\": null}, \"students\": []}")
+    end
+
+    it 'requests a Whiteboard from the Desmos API using its unique hash value' do
+      whiteboard = Desmos::Whiteboard.find('abcde')
+      whiteboard.should be_instance_of(Desmos::Whiteboard)
+      whiteboard.hash.should eql('abcde')
+    end
+
   end
 
-  it 'requests a Whiteboard from the Desmos API using its unique hash value' do
-    whiteboard = Desmos::Whiteboard.find('abcde')
-    whiteboard.should be_instance_of(Desmos::Whiteboard)
-    whiteboard.hash.should eql('abcde')
+  context 'when the Whiteboard does not exist of the Desmos API' do
+
+    before(:each) do
+      stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/read/).
+        to_return(:status => 200, :body => "{\"error_code\": 1, \"error_message\": \"Whiteboard not found\", \"success\": \"false\"}")
+    end
+
+    it 'raises an error if the Whiteboard' do
+      lambda { Desmos::Whiteboard.find('abcde') }.should raise_error(Desmos::RequestError, 'Whiteboard not found')
+    end
+
   end
 
 end
 
 describe Desmos::Whiteboard, '#build_from_hash' do
-  
+
   it 'builds a fresh instance using the provided hash' do
     whiteboard = Desmos::Whiteboard.new.build_from_hash({
       :title => 'No Title',
@@ -145,5 +162,5 @@ describe Desmos::Whiteboard, '#build_from_hash' do
     whiteboard.tutor.should be_instance_of(Desmos::Tutor)
     whiteboard.students.should be_empty
   end
-  
+
 end

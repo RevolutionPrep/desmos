@@ -36,7 +36,11 @@ module Desmos
 
     def get
       parsed_response = request!(:whiteboard, :read, :whiteboard_hash => hash)
-      build_from_hash(parsed_response)
+      if parsed_response[:success] == 'false'
+        raise RequestError, parsed_response[:error_message]
+      else
+        build_from_hash(parsed_response)
+      end
     end
 
     def request_options

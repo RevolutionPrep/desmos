@@ -28,7 +28,6 @@ module Desmos
 
     def parse_response(response)
       parsed_response = Yajl::Parser.parse(response.body).symbolize_keys
-      # !!@parsed_response[:success] ? @parsed_response : raise(RequestError, "Request was not successful: #{@parsed_response.inspect}")
     end
 
   end

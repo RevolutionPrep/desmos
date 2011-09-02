@@ -12,4 +12,5 @@ module Desmos
 
   # ERROR CLASSES
   autoload :ConfigurationError, 'desmos/errors'
+  autoload :RequestError,       'desmos/errors'
 end
