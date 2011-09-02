@@ -15,7 +15,6 @@ module Desmos
       @hash       = options[:hash]  # optional: The API will generate this if not provided. Must be unique if provided.
       @title      = options[:title] # optional
 
-
       # optional: Should be a Desmos::Tutor object
       if options[:tutor] && !(Tutor === options[:tutor])
         raise ArgumentError, ':tutor option must be either of type Desmos::Tutor or NilClass'
