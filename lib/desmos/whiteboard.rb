@@ -60,7 +60,7 @@ module Desmos
     def build_from_hash(options)
       self.hash     = options[:hash]
       self.title    = options[:title]
-      self.tutor    = Tutor.new(options[:tutor])
+      self.tutor    = Tutor.build_from_hash(options[:tutor])
       self.students = options[:students].collect { |student_attributes| Student.new(student_attributes) }
       self
     end

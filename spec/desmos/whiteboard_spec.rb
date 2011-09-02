@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Desmos::Whiteboard, '.new' do
 
   it 'sets the instance variables based upon the options passed into the initializer' do
-    tutor      = Desmos::Tutor.new
+    tutor      = Desmos::Tutor.new(:id => 1, :name => 'test')
     students   = [Desmos::Student.new]
     whiteboard = Desmos::Whiteboard.new(
       :hash     => 'abcde',
@@ -150,9 +150,9 @@ describe Desmos::Whiteboard, '#build_from_hash' do
       :title => 'No Title',
       :hash  => 'abcde',
       :tutor => {
-        :id   => nil,
-        :hash => nil,
-        :name => nil
+        :id   => 1,
+        :hash => 'zyxwv',
+        :name => 'test'
       },
       :students => []
     })
