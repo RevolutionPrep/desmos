@@ -15,6 +15,7 @@ module Desmos
     end
 
     def self.build_from_hash(options = {})
+      options.symbolize_keys!
       return if options[:id].blank?
       return if options[:name].blank?
       new(options)
