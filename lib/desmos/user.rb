@@ -1,6 +1,5 @@
 module Desmos
   class User
-    include RequestSupport
     attr_accessor :id, :hash, :type, :name, :last_name, :family_name, :skype, :email
 
     def initialize(options = {})
@@ -23,29 +22,6 @@ module Desmos
       return if options[:id].blank?
       return if options[:name].blank?
       new(options)
-    end
-
-    def self.create(options = {})
-      new(options).save
-    end
-
-    def save
-      parsed_response = request!(:users, :create, request_options)
-      self
-    end
-
-    def request_options
-      @request_options ||= begin
-        options = {}
-        options.merge!(:user_id     => id)
-        options.merge!(:type        => type)
-        options.merge!(:name        => name)
-        options.merge!(:family_name => family_name) if family_name
-        options.merge!(:last_name   => last_name)   if last_name
-        options.merge!(:skype       => skype)       if skype
-        options.merge!(:email       => email)       if email
-        options
-      end
     end
 
   end

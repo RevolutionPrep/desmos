@@ -40,31 +40,3 @@ describe Desmos::User, '.build_from_hash' do
   end
 
 end
-
-describe Desmos::User, '#save' do
-
-  before(:each) do
-    stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/users\/create/).
-      to_return(:status => 200, :body => "{\"success\": \"true\"}")
-  end
-
-  it 'calls out to the Desmos API to save the user' do
-    user = Desmos::User.new(:id => 1, :name => 'test')
-    user.save
-  end
-
-end
-
-describe Desmos::User, '.create' do
-
-  before(:each) do
-    stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/users\/create/).
-      to_return(:status => 200, :body => "{\"success\": \"true\"}")
-  end
-
-  it 'calls out to the Desmos API to save the user' do
-    user = Desmos::User.create(:id => 1, :name => 'test')
-    user.should be_instance_of(Desmos::User)
-  end
-
-end

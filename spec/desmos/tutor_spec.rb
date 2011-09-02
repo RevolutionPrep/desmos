@@ -40,31 +40,3 @@ describe Desmos::Tutor, '.build_from_hash' do
   end
 
 end
-
-describe Desmos::Tutor, '#save' do
-
-  before(:each) do
-    stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/users\/create/).
-      to_return(:status => 200, :body => "{\"success\": \"true\"}")
-  end
-
-  it 'calls out to the Desmos API to save the tutor' do
-    tutor = Desmos::Tutor.new(:id => 1, :name => 'test')
-    tutor.save
-  end
-
-end
-
-describe Desmos::Tutor, '.create' do
-
-  before(:each) do
-    stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/users\/create/).
-      to_return(:status => 200, :body => "{\"success\": \"true\"}")
-  end
-
-  it 'calls out to the Desmos API to save the tutor' do
-    tutor = Desmos::Tutor.create(:id => 1, :name => 'test')
-    tutor.should be_instance_of(Desmos::Tutor)
-  end
-
-end
