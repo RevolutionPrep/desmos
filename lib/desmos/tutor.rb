@@ -24,6 +24,10 @@ module Desmos
       new(options)
     end
 
+    def self.create(options = {})
+      new(options).save
+    end
+
     def save
       parsed_response = request!(:users, :create, request_options)
       self
@@ -32,13 +36,13 @@ module Desmos
     def request_options
       @request_options ||= begin
         options = {}
-        options.merge(:user_id     => id)
-        options.merge(:type        => 'tutor')
-        options.merge(:name        => name)
-        options.merge(:family_name => family_name) if family_name
-        options.merge(:last_name   => last_name)   if last_name
-        options.merge(:skype       => skype)       if skype
-        options.merge(:email       => email)       if email
+        options.merge!(:user_id     => id)
+        options.merge!(:type        => 'tutor')
+        options.merge!(:name        => name)
+        options.merge!(:family_name => family_name) if family_name
+        options.merge!(:last_name   => last_name)   if last_name
+        options.merge!(:skype       => skype)       if skype
+        options.merge!(:email       => email)       if email
         options
       end
     end

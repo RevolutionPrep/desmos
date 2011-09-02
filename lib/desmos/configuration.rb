@@ -52,5 +52,15 @@ module Desmos
     end
     module_function :secret
 
+    def debug_mode=(debug_mode)
+      @debug_mode = debug_mode
+    end
+    module_function :debug_mode=
+
+    def debug_mode
+      @debug_mode || false
+    end
+    module_function :debug_mode
+
   end
 end

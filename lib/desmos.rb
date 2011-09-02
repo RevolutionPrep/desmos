@@ -3,8 +3,9 @@ require 'oauth'
 require 'yajl'
 
 module Desmos
-  autoload :RequestSupport, 'desmos/request_support'
   autoload :Configuration,  'desmos/configuration'
+  autoload :DebugMode,      'desmos/debug_mode'
+  autoload :RequestSupport, 'desmos/request_support'
   autoload :Student,        'desmos/student'
   autoload :Tutor,          'desmos/tutor'
   autoload :Utils,          'desmos/utils'

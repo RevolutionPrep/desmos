@@ -18,9 +18,3 @@ describe Desmos::Utils, '.escape' do
   end
   
 end
-
-describe Desmos::Utils, '.traverse_params_hash' do
-  
-  
-  
-end

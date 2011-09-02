@@ -92,3 +92,14 @@ describe Desmos::Configuration, '.secret' do
   end
 
 end
+
+describe Desmos::Configuration, '.debug_mode' do
+
+  it 'has a debug_mode attriubute that defaults to false' do
+    Desmos::Configuration.should respond_to(:debug_mode)
+    Desmos::Configuration.debug_mode.should eql(false)
+    Desmos::Configuration.debug_mode = true
+    Desmos::Configuration.debug_mode.should eql(true)
+  end
+
+end
