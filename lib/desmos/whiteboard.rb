@@ -31,7 +31,23 @@ module Desmos
     def save
       parsed_response = request!(:whiteboard, :create, request_options)
       self.hash = parsed_response.fetch(:hash)
+      add_tutor
+      add_students
       self
+    end
+
+    def add_tutor
+      if tutor
+        parsed_response = request!(:whiteboard, :add_user, tutor.request_options.merge(:whiteboard_hash => hash))
+      end
+    end
+
+    def add_students
+      unless students.empty?
+        students.each do |student|
+          parsed_response = request!(:whiteboard, :add_user, student.request_options.merge(:whiteboard_hash => hash))
+        end
+      end
     end
 
     def get

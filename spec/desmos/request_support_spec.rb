@@ -18,6 +18,7 @@ describe Desmos::RequestSupport, '#request!' do
       :hash    => 'abcde',
       :title   => 'Test Session'
     })
+    assert_requested :get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/create/, :times => 1
   end
 
 end
@@ -35,6 +36,7 @@ describe Desmos::RequestSupport, '#make_request' do
   it 'makes a request to the Desmos API with the given object, method, and options and returns a response from Net::HTTP' do
     response = @instance.make_request(:whiteboard, :create, { :title => 'Test Session' })
     response.should be_instance_of(Net::HTTPOK)
+    assert_requested :get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/create/, :times => 1
   end
   
 end

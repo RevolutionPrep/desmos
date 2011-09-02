@@ -16,10 +16,6 @@ describe Desmos::Tutor, '.new' do
     tutor.hash.should eql('abcde')
     tutor.type.should eql('tutor')
     tutor.name.should eql('Test')
-    tutor.last_name.should eql('Tutor')
-    tutor.family_name.should eql('TutorName')
-    tutor.skype.should eql('test_tutor')
-    tutor.email.should eql('test_tutor@example.com')
   end
 
   it 'requires a name attribute' do

@@ -1,15 +1,11 @@
 module Desmos
   class User
-    attr_accessor :id, :hash, :type, :name, :last_name, :family_name, :skype, :email
+    attr_accessor :id, :hash, :type, :name
 
     def initialize(options = {})
       options.symbolize_keys!
       @type        = 'user'
       @hash        = options[:hash]
-      @last_name   = options[:last_name]
-      @family_name = options[:family_name]
-      @skype       = options[:skype]
-      @email       = options[:email]
 
       raise ArgumentError, ':id is a required attribute' unless options[:id]
       @id = options[:id]
@@ -22,6 +18,17 @@ module Desmos
       return if options[:id].blank?
       return if options[:name].blank?
       new(options)
+    end
+
+    def request_options
+      @request_options ||= begin
+        options = {}
+        options.merge!(:user_id   => id)
+        options.merge!(:user_name => name)
+        options.merge!(:user_type => type)
+        options.merge!(:user_hash => hash) if hash
+        options
+      end
     end
 
   end

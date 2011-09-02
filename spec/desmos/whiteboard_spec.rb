@@ -47,31 +47,25 @@ describe Desmos::Whiteboard, '.new' do
 
 end
 
-describe Desmos::Whiteboard, '.create' do
-
-  before(:each) do
-    stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/create/).
-      to_return(:status => 200, :body => "{\"success\": \"true\", \"hash\": \"abcde\"}")
-    end
-
-  it 'returns a new instance of DesmosWhiteboard' do
-    whiteboard = Desmos::Whiteboard.create
-    whiteboard.should be_kind_of(Desmos::Whiteboard)
-    whiteboard.hash.should eql('abcde')
-  end
-
-end
-
 describe Desmos::Whiteboard, '#save' do
 
   before(:each) do
     stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/create/).
       to_return(:status => 200, :body => "{\"success\": \"true\", \"hash\": \"abcde\"}")
+    
+    stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/add_user/).
+      to_return(:status => 200, :body => "{\"success\": \"true\", \"hash\": \"abcde\"}")
   end
 
-  it 'calls out to the Desmos API to save the whiteboard' do
-    whiteboard = Desmos::Whiteboard.new
+  it 'calls out to the Desmos API to save the whiteboard, tutor, and students' do
+    tutor      = Desmos::Tutor.new(:id => 1, :name => 'tutor')
+    student    = Desmos::Student.new(:id => 2, :name => 'student')
+    whiteboard = Desmos::Whiteboard.new(:tutor => tutor)
+    whiteboard.students << student
     whiteboard.save
+    
+    assert_requested :get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/create/, :times => 1
+    assert_requested :get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/add_user/, :times => 2
   end
 
 end
@@ -111,6 +105,22 @@ describe Desmos::Whiteboard, '#request_options' do
 
 end
 
+describe Desmos::Whiteboard, '.create' do
+
+  before(:each) do
+    stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/create/).
+      to_return(:status => 200, :body => "{\"success\": \"true\", \"hash\": \"abcde\"}")
+    end
+
+  it 'returns a new instance of DesmosWhiteboard' do
+    whiteboard = Desmos::Whiteboard.create
+    whiteboard.should be_kind_of(Desmos::Whiteboard)
+    whiteboard.hash.should eql('abcde')
+    assert_requested :get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/create/, :times => 1
+  end
+
+end
+
 describe Desmos::Whiteboard, '.find' do
 
   context 'when the Whiteboard exists on the Desmos API' do
@@ -124,6 +134,8 @@ describe Desmos::Whiteboard, '.find' do
       whiteboard = Desmos::Whiteboard.find('abcde')
       whiteboard.should be_instance_of(Desmos::Whiteboard)
       whiteboard.hash.should eql('abcde')
+      
+      assert_requested :get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/read/, :times => 1
     end
 
   end

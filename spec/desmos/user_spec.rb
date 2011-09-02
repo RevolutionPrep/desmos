@@ -16,10 +16,6 @@ describe Desmos::User, '.new' do
     user.hash.should eql('abcde')
     user.type.should eql('user')
     user.name.should eql('Test')
-    user.last_name.should eql('User')
-    user.family_name.should eql('UserName')
-    user.skype.should eql('test_user')
-    user.email.should eql('test_user@example.com')
   end
 
   it 'requires a name attribute' do
