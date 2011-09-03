@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Ryan Moran}]
-  s.date = %q{2011-09-02}
-  s.description = %q{TODO: longer description of your gem}
+  s.date = %q{2011-09-03}
+  s.description = %q{Desmos API Wrapper}
   s.email = %q{ryan.moran@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -28,15 +28,19 @@ Gem::Specification.new do |s|
     "desmos.gemspec",
     "lib/desmos.rb",
     "lib/desmos/configuration.rb",
+    "lib/desmos/debug_mode.rb",
     "lib/desmos/errors.rb",
     "lib/desmos/request_support.rb",
     "lib/desmos/student.rb",
     "lib/desmos/tutor.rb",
+    "lib/desmos/user.rb",
     "lib/desmos/utils.rb",
     "lib/desmos/whiteboard.rb",
     "spec/desmos/configuration_spec.rb",
     "spec/desmos/request_support_spec.rb",
+    "spec/desmos/student_spec.rb",
     "spec/desmos/tutor_spec.rb",
+    "spec/desmos/user_spec.rb",
     "spec/desmos/utils_spec.rb",
     "spec/desmos/whiteboard_spec.rb",
     "spec/spec.opts",
@@ -46,7 +50,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/RevolutionPrep/desmos}
   s.require_paths = [%q{lib}]
   s.rubygems_version = %q{1.8.6}
-  s.summary = %q{TODO: one-line summary of your gem}
+  s.summary = %q{Desmos API Wrapper}
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
