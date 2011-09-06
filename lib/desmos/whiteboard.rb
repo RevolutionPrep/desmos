@@ -49,9 +49,13 @@ module Desmos
     def add_students
       unless students.empty?
         students.each do |student|
-          parsed_response = request!(:whiteboard, :add_user, student.request_options.merge(:whiteboard_hash => hash))
+          add_student(student)
         end
       end
+    end
+
+    def add_student(student)
+      parsed_response = request!(:whiteboard, :add_user, student.request_options.merge(:whiteboard_hash => hash))
     end
 
     def get
