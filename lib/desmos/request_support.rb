@@ -37,7 +37,7 @@ module Desmos
     def parse_response(response)
       debug "\n[RequestSupport.parse_response] (#{response.inspect})"
       debug "response.body:\n#{response.body}"
-      parsed_response = Yajl::Parser.parse(response.body).symbolize_keys
+      parsed_response = Yajl::Parser.parse(response.body).recursive_symbolize_keys
     end
 
   end
