@@ -35,14 +35,14 @@ module Desmos
       else
         self.hash = parsed_response.fetch(:hash)
       end
-      add_tutor
+      set_tutor
       add_students
       self
     end
 
-    def add_tutor
+    def set_tutor
       if tutor
-        parsed_response = request!(:whiteboard, :add_user, tutor.request_options.merge(:whiteboard_hash => hash))
+        parsed_response = request!(:whiteboard, :set_tutor, tutor.request_options.reject { |k,v| k == :user_type }.merge(:whiteboard_hash => hash))
       end
     end
 
@@ -55,7 +55,7 @@ module Desmos
     end
 
     def add_student(student)
-      parsed_response = request!(:whiteboard, :add_user, student.request_options.merge(:whiteboard_hash => hash))
+      parsed_response = request!(:whiteboard, :add_student, student.request_options.reject { |k,v| k == :user_type }.merge(:whiteboard_hash => hash))
     end
 
     def get

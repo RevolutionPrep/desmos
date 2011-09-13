@@ -55,7 +55,10 @@ describe Desmos::Whiteboard, '#save' do
       stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/create/).
         to_return(:status => 200, :body => "{\"success\": \"true\", \"hash\": \"abcde\"}")
     
-      stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/add_user/).
+      stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/set_tutor/).
+        to_return(:status => 200, :body => "{\"success\": \"true\", \"hash\": \"abcde\"}")
+      
+      stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/add_student/).
         to_return(:status => 200, :body => "{\"success\": \"true\", \"hash\": \"abcde\"}")
     end
 
@@ -67,7 +70,8 @@ describe Desmos::Whiteboard, '#save' do
       whiteboard.save
     
       assert_requested :get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/create/, :times => 1
-      assert_requested :get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/add_user/, :times => 2
+      assert_requested :get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/set_tutor/, :times => 1
+      assert_requested :get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/add_student/, :times => 1
     end
 
   end
@@ -78,9 +82,6 @@ describe Desmos::Whiteboard, '#save' do
       stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/create/).
         to_return(:status => 200, :body => "{\"success\": \"true\", \"hash\": \"abcde\"}").
         to_return(:status => 200, :body => "{\"success\":\"false\",\"error_code\":1,\"error_message\":\"whiteboard already exists\"}")
-    
-      stub_request(:get, /https\:\/\/api\.tutortrove\.com\/api_v1\/whiteboard\/add_user/).
-        to_return(:status => 200, :body => "{\"success\": \"true\", \"hash\": \"abcde\"}")
     end
 
     it 'calls out to the Desmos API to save the whiteboard, tutor, and students' do
