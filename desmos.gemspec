@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{desmos}
-  s.version = "0.2.0"
+  s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Ryan Moran}]
-  s.date = %q{2011-09-13}
+  s.date = %q{2011-11-11}
   s.description = %q{Desmos API Wrapper}
   s.email = %q{ryan.moran@gmail.com}
   s.extra_rdoc_files = [
