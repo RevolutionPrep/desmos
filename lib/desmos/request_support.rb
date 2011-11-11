@@ -13,7 +13,7 @@ module Desmos
       uri      = build_uri(object, method, options)
       consumer = OAuth::Consumer.new(Configuration.key, Configuration.secret, :site => Configuration.domain)
       http     = build_http(uri)
-      request  = consumer.create_signed_request(:get, "#{Configuration.domain}#{uri.path}?#{uri.query}", nil, options.merge(:scheme => 'query_string'))
+      request  = consumer.create_signed_request(:get, "#{uri.path}?#{uri.query}", nil, options.merge(:scheme => 'query_string'))
       debug "request:\n#{request.path}"
       http.request(request)
     end
