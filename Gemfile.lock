@@ -1,10 +1,8 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    ZenTest (4.6.2)
     addressable (2.2.6)
-    autotest (4.4.6)
-      ZenTest (>= 4.4.1)
+    autotest-standalone (4.5.9)
     awesome_print (0.4.0)
     crack (0.1.8)
     diff-lcs (1.1.3)
@@ -26,16 +24,16 @@ GEM
     webmock (1.7.5)
       addressable (~> 2.2, > 2.2.5)
       crack (>= 0.1.7)
-    yajl-ruby (0.8.3)
+    yajl-ruby (1.1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  autotest
+  autotest-standalone
   awesome_print
   jeweler
   oauth (~> 0.4.5)
   rspec
   webmock
-  yajl-ruby (~> 0.8.2)
+  yajl-ruby (~> 1.1.0)

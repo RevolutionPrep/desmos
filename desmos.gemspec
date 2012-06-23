@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{desmos}
-  s.version = "0.2.1"
+  s.version = "0.2.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = [%q{Ryan Moran}]
-  s.date = %q{2011-11-11}
+  s.authors = ["Ryan Moran"]
+  s.date = %q{2012-06-22}
   s.description = %q{Desmos API Wrapper}
   s.email = %q{ryan.moran@gmail.com}
   s.extra_rdoc_files = [
@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
     "README.rdoc"
   ]
   s.files = [
+    ".rspec",
     ".rvmrc",
     "Gemfile",
     "Gemfile.lock",
@@ -24,7 +25,6 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
-    "autotest/discover.rb",
     "desmos.gemspec",
     "lib/desmos.rb",
     "lib/desmos/configuration.rb",
@@ -49,38 +49,38 @@ Gem::Specification.new do |s|
     "spec/support/configure.rb"
   ]
   s.homepage = %q{http://github.com/RevolutionPrep/desmos}
-  s.require_paths = [%q{lib}]
-  s.rubygems_version = %q{1.8.6}
+  s.require_paths = ["lib"]
+  s.rubygems_version = %q{1.4.2}
   s.summary = %q{Desmos API Wrapper}
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<yajl-ruby>, ["~> 0.8.2"])
+      s.add_runtime_dependency(%q<yajl-ruby>, ["~> 1.1.0"])
       s.add_runtime_dependency(%q<oauth>, ["~> 0.4.5"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
-      s.add_development_dependency(%q<autotest>, [">= 0"])
+      s.add_development_dependency(%q<autotest-standalone>, [">= 0"])
       s.add_development_dependency(%q<awesome_print>, [">= 0"])
       s.add_development_dependency(%q<webmock>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 1.2.9"])
     else
-      s.add_dependency(%q<yajl-ruby>, ["~> 0.8.2"])
+      s.add_dependency(%q<yajl-ruby>, ["~> 1.1.0"])
       s.add_dependency(%q<oauth>, ["~> 0.4.5"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
-      s.add_dependency(%q<autotest>, [">= 0"])
+      s.add_dependency(%q<autotest-standalone>, [">= 0"])
       s.add_dependency(%q<awesome_print>, [">= 0"])
       s.add_dependency(%q<webmock>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 1.2.9"])
     end
   else
-    s.add_dependency(%q<yajl-ruby>, ["~> 0.8.2"])
+    s.add_dependency(%q<yajl-ruby>, ["~> 1.1.0"])
     s.add_dependency(%q<oauth>, ["~> 0.4.5"])
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
-    s.add_dependency(%q<autotest>, [">= 0"])
+    s.add_dependency(%q<autotest-standalone>, [">= 0"])
     s.add_dependency(%q<awesome_print>, [">= 0"])
     s.add_dependency(%q<webmock>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 1.2.9"])
